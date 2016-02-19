@@ -1,0 +1,47 @@
+package com.lyun.appinterface.service;
+
+import com.lyun.appinterface.model.$!{classNameUpCase}Model;
+import com.lyun.appinterface.query.$!{classNameUpCase}Query;
+
+import java.util.List;
+
+
+public interface $!{classNameUpCase}Service{
+
+    //查询所有记录
+	public List<$!{classNameUpCase}Model> fetchPage($!{classNameUpCase}Query query);
+	
+	//查询所有记录总数
+	public int fetchPageCount($!{classNameUpCase}Query query);
+	
+	#if($!{isDatabaseShard} == true)
+		
+	//根据ID查询指定的数据(分库)
+	public $!{classNameUpCase}Model getById(long id,String userName);
+	
+	#else
+	
+	//根据ID查询指定的数据(不分库)
+	public $!{classNameUpCase}Model getById(long id);
+	
+	#end
+	
+	
+	//删除
+	public void del($!{classNameUpCase}Model $!{classNameLowCase});
+	
+	//新增
+	public long insert($!{classNameUpCase}Model $!{classNameLowCase});
+	
+	//修改
+	public long update($!{classNameUpCase}Model $!{classNameLowCase});
+	
+	//高级查询
+	public List<$!{classNameUpCase}Model> fetchPageAdvance($!{classNameUpCase}Query query);
+	
+	//高级查询总记录数
+	public int fetchPageAdvanceCount($!{classNameUpCase}Query query);
+	
+	
+
+}

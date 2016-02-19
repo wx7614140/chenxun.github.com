@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>详情</title>
+<script type="text/javascript" src="view/jquery-1.8.2.min.js"></script>
+</head>
+<body>
+
+<div style="float: left;">
+<label>名称:&nbsp;</label>$!{i.name}<br/>
+<label>说明:&nbsp;</label>$!{i.remark}<br/>
+<label>方式:&nbsp;</label>$!{i.method}<br/>
+<label>请求参数:&nbsp;</label>
+<table>
+		<thead>
+		<tr>
+			<th>名称</th>
+			<th>类型</th>
+			<th>是否必填</th>
+			<th>描述</th>
+		</tr>
+		
+	
+	</thead>
+	<tbody>
+	
+	   #foreach($a in $!{pList})
+	   
+	  <tr>
+			<td>$!{a.name}&nbsp;</td>
+			<td>$!{a.paramsType}&nbsp;</td>
+			<td>
+
+			#if($!{a.isNull} == 1)			   
+			   是			
+			 #else			 
+			 否			
+			#end	
+			&nbsp;</td>
+			<td>$!{a.remark}&nbsp;</td>
+		</tr>
+	   
+	   
+	   #end
+	
+
+	
+	</tbody>
+
+
+</table>
+</div>
+<div style="float: left;">
+<div ><label>响应结果:&nbsp;</label></div><textarea style="width: 300px;height: 500px;">$stringUtil.formatJson2($!{i.response})</textarea>
+</div>
+<div>
+<div style="float: left;margin-left: 10px;">
+<div>参数：(appId:1003)</div>
+<textarea style="width: 300px;height: 500px;" id="params">{
+#foreach($a in $!{pList})"$!{a.name}":""#if($!{pList.size()}!=$!{velocityCount}),#end&#13;#end
+}</textarea>
+</div>
+<div style="float: left;margin-left: 10px;">
+<div><input type="button" value="测试" id="test"></div>
+<textarea style="width: 300px;height: 500px;" id="result">
+</textarea>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$("#test").click(function(){
+			var s='$!{i.remark}';
+	    	s=s.substring(s.indexOf('/'),s.lastIndexOf('.'));
+	    	var data=$("#params").val();
+	    	var reg = '//s/g';
+	    	data=data.replace(reg, "");
+	    	
+	    	var tourl="http://172.16.252.150:8080"+s+".json";
+	    	
+			jQuery.ajax({
+				url:"test.json",
+				data:{
+					url:tourl,
+					data:data
+				},
+				
+				success:function(msg){
+					$("#result").val(msg.result);
+				}
+			   
+				
+				
+			});
+	
+			
+			
+			
+		});
+		
+		
+	});
+
+
+
+
+
+
+
+</script>
+      
+
+
+
+
+</body>
+</html>

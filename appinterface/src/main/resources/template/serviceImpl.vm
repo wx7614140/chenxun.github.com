@@ -1,0 +1,102 @@
+package com.lyun.appinterface.serviceimpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import com.lyun.appinterface.mapper.$!{classNameUpCase}Mapper;
+import com.lyun.appinterface.model.$!{classNameUpCase}Model;
+
+import com.lyun.appinterface.query.$!{classNameUpCase}Query;
+import com.lyun.appinterface.service.$!{classNameUpCase}Service;
+
+    
+@Service("$!{classNameLowCase}Service")
+public class $!{classNameUpCase}ServiceImpl implements $!{classNameUpCase}Service{
+	@Autowired
+	private $!{classNameUpCase}Mapper $!{classNameLowCase}Mapper;
+
+    //查询所有记录 
+	public List<$!{classNameUpCase}Model> fetchPage($!{classNameUpCase}Query query){
+	
+	    #if($!{isDatabaseShard} == true)
+		   DatabaseShard.setUserName(query.getCurrentUserName());
+		#end
+		return $!{classNameLowCase}Mapper.fetchPageList(query);
+	}
+	
+	//查询所有记录总数
+	public int fetchPageCount($!{classNameUpCase}Query query){
+	    #if($!{isDatabaseShard} == true)
+		   DatabaseShard.setUserName(query.getCurrentUserName());
+		#end
+		return $!{classNameLowCase}Mapper.fetchPageCount(query);
+	}
+	
+	#if($!{isDatabaseShard} == true)
+
+	//根据ID查询指定的数据(分库)
+	public $!{classNameUpCase}Model getById(long id,String userName){ 
+		DatabaseShard.setUserName(userName);//是博文所有者
+		return $!{classNameLowCase}Mapper.getById(id);
+	}
+	
+	#else
+	
+	//根据ID查询指定的数据(不分库)
+	public $!{classNameUpCase}Model getById(long id){ 
+		return $!{classNameLowCase}Mapper.getById(id);
+	}
+	
+	#end
+	
+	//删除 
+	public void del($!{classNameUpCase}Model $!{classNameLowCase}){
+	    #if($!{isDatabaseShard} == true)
+		   DatabaseShard.setUserName(query.getCurrentUserName());
+		#end
+		$!{classNameLowCase}Mapper.del($!{classNameLowCase});
+	}
+	
+	//新增
+	public long insert($!{classNameUpCase}Model $!{classNameLowCase}){	
+	    #if($!{isDatabaseShard} == true)
+		   DatabaseShard.setUserName(query.getCurrentUserName());
+		#end
+		return $!{classNameLowCase}Mapper.insert($!{classNameLowCase});
+		
+	}
+	
+	//修改
+	public long update($!{classNameUpCase}Model $!{classNameLowCase}){
+	    #if($!{isDatabaseShard} == true)
+		   DatabaseShard.setUserName(query.getCurrentUserName());
+		#end
+		return $!{classNameLowCase}Mapper.update($!{classNameLowCase});
+	}
+	
+	//高级查询 
+	@Override
+	public List<$!{classNameUpCase}Model> fetchPageAdvance($!{classNameUpCase}Query query) {
+	    #if($!{isDatabaseShard} == true)
+		   DatabaseShard.setUserName(query.getCurrentUserName());
+		#end
+		return $!{classNameLowCase}Mapper.fetchPageAdvance(query);
+	}
+	
+	//高级查询总记录数
+	@Override
+	public int fetchPageAdvanceCount($!{classNameUpCase}Query query) {
+	    #if($!{isDatabaseShard} == true)
+		   DatabaseShard.setUserName(query.getCurrentUserName());
+		#end
+		return $!{classNameLowCase}Mapper.fetchPageAdvanceCount(query);
+	}
+
+	
+	
+
+}

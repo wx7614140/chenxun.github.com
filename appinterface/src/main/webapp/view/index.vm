@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>首页</title>
+
+</head>
+<body >
+ <form action="index.htm" name="pageFrom">
+  			<label>名称</label>
+         <input type="text" name="name"/>	
+  		<input type="submit" value="查询">
+  	</form>
+
+
+<table >
+	<thead>
+		<tr>
+			<th>编号</th>
+			<th>名称</th>
+			<th>时间</th>
+			<th>操作</th>
+		</tr>
+		
+	
+	</thead>
+	<tbody>
+	
+	   #foreach($a in $!{list})
+	   
+	  <tr>
+			<td>$!{a.id}&nbsp;</td>
+			<td>$!{a.name}&nbsp;</td>
+			<td>$stringUtil.toDateStr($!{a.createTime})&nbsp;</td>
+			<td><a href="details.htm?id=$!{a.id}" target="_blank" >查看详情</a>&nbsp;</td>
+		</tr>
+	   
+	   
+	   #end
+	
+
+	
+	</tbody>
+
+</table>
+
+<br>
+	 
+ 	
+  
+	 #if($pageInfo.totalItem.compareTo($pageInfo.pageSize)>0)
+ 		#pageNavigation($pageInfo,"pageFrom")
+    #end 
+
+
+</body>
+</html>

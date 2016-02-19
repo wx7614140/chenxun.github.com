@@ -1,0 +1,61 @@
+package com.lyun.appinterface.mapper;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
+import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.mapping.StatementType;
+
+import com.lyun.appinterface.model.$!{classNameUpCase}Model;
+import com.lyun.appinterface.query.$!{classNameUpCase}Query;
+
+public interface  $!{classNameUpCase}Mapper{
+	
+
+																																																																																																																				
+	public String columns="$!{columns}";
+	
+	public String insert="$!{insert}";
+																																																																																																												
+	public String property="$!{property}";
+	
+	public String insertProperty="$!{insertProperty}";
+																																																																																																																				
+	public String update="$!{update}";
+	
+	@Select("select "+columns+" FROM $!{talbeName}  limit #{startRow},#{endRow}")
+	@ResultMap(value="com.lyun.appinterface.mapper.$!{classNameUpCase}Mapper.$!{classNameUpCase}ModelMap")
+	public List<$!{classNameUpCase}Model> fetchPageList($!{classNameUpCase}Query query);
+	
+	@Select("select count(*) from $!{talbeName} where 1 = 1 ")
+	public int fetchPageCount($!{classNameUpCase}Query query);
+	
+	@Select("select "+columns+" from $!{talbeName} where ID=#{id}")
+	@ResultMap(value="com.lyun.appinterface.mapper.$!{classNameUpCase}Mapper.$!{classNameUpCase}ModelMap")
+	public $!{classNameUpCase}Model getById(long id);
+	
+	@Insert("insert into $!{talbeName} ("+insert+") values ("+insertProperty+")")
+	public long insert($!{classNameUpCase}Model $!{classNameLowCase});
+
+	@Update("update $!{talbeName} set "+update+" where ID=#{id}")
+	public long update($!{classNameUpCase}Model $!{classNameLowCase}); 
+	
+	@Delete("delete from $!{talbeName} where 1 = 1 and ID=#{id} ")
+	public void del($!{classNameUpCase}Model $!{classNameLowCase});
+
+	@SelectProvider(type=com.lyun.appinterface.provider.$!{classNameUpCase}Provider.class,method="fetchPageAdvance")
+	@ResultMap(value="com.lyun.appinterface.mapper.$!{classNameUpCase}Mapper.$!{classNameUpCase}ModelMap")
+	public List<$!{classNameUpCase}Model> fetchPageAdvance($!{classNameUpCase}Query query);  
+	
+	
+	@SelectProvider(type=com.lyun.appinterface.provider.$!{classNameUpCase}Provider.class,method="fetchPageAdvanceCount")
+	public int fetchPageAdvanceCount($!{classNameUpCase}Query query);
+	
+	
+	
+	
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="/css/app/app.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/plugin/jquery-easyui-1.4.3/themes/gray/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="/css/common/jquery-ui.css"/> 
+ <link rel="icon" href="/qwerty.ico"/>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>网络遗嘱</title>
+<script src="/js/common/jquery-1.8.2.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){ 
+	$('.lv_app_nav_tab').find('li').each(function(){
+		$(this).attr("class","normal_01");
+		if('$module'==$(this).html()){
+			$(this).attr("class","active_01");
+		}
+	});
+});
+
+</script>
+
+</head>
+
+<body>
+<input type="hidden" id="navHidden" value="3"/>
+#parse("common/head.vm")
+<!-- <script type="text/javascript" src="/js/common/customInput.jquery.js"></script> -->
+<div class="lv_app"> 
+  <div class="lv_app_nav">
+    <div class="lv_app_title">
+      <p class="lv_app_title_01">律•应用</p>
+      <p class="lv_app_title_02">APPLICATION</p>
+    </div>
+    
+    <ul class="lv_app_nav_tab">
+      <a href="member-love-message-ordinary.htm"><li class="active_01">网络遗嘱</li></a>
+      <a href="member-receive-compact.htm"><li class="normal_01">电子合同</li></a>
+      <a href="member-app-download.htm"><li class="normal_01">文档下载</li></a>
+    </ul>
+  </div>
+  
+   <div class="lv_app_cont">
+   $screen_content
+   </div>
+</div>
+
+#parse("common/commonFooter.vm")
+</body>
+
+</html>

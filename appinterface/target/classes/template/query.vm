@@ -1,0 +1,29 @@
+package com.lyun.appinterface.query;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import com.lyun.appinterface.support.QueryBase;
+
+public class $!{classNameUpCase}Query extends QueryBase implements Serializable {
+	
+	 
+	 #foreach($f in ${filds})
+	 	private $!{f.type} $!{f.fild};
+	 #end
+
+	#foreach($f in $!{filds})
+		public void set${f.property}(${f.type} ${f.fild}){
+			this.${f.fild}=${f.fild};
+		}
+	
+	
+	    public ${f.type} get${f.property}(){
+          return ${f.fild};
+	    }
+	
+	
+	#end
+
+		
+}

@@ -1,0 +1,62 @@
+package com.lyun.appinterface.provider;
+
+import com.lyun.appinterface.query.$!{classNameUpCase}Query;
+
+import com.lyun.appinterface.support.StringUtil;
+
+
+public class $!{classNameUpCase}Provider {
+
+	
+	
+	
+	public String fetchPageAdvance($!{classNameUpCase}Query query){  
+		StringBuffer sql=new StringBuffer("select * from $!{talbeName} where 1 = 1" );
+		   if(query!=null){
+		     #foreach($f in $!{filds})
+		         #if($f.type == 'String')
+if(!StringUtil.isEmpty(query.get${f.property}())){
+						sql.append(" and $f.columnName ='"+query.get${f.property}()+"'");
+					}
+		         #elseif($f.type == 'int' || $f.type == 'long')
+if(query.get${f.property}()>0){
+						sql.append(" and $f.columnName = "+query.get${f.property}());
+					}
+			     #end
+			 #end
+		}
+		
+		
+
+	
+		sql.append(" order by ID desc " );
+		sql.append(" limit "+query.getStartRow()+","+query.getEndRow() );
+		
+		
+		return sql.toString();
+	}
+	
+	public String fetchPageAdvanceCount($!{classNameUpCase}Query query){
+		StringBuffer sql=new StringBuffer("select count(*) from $!{talbeName} where 1 = 1" );
+		   if(query!=null){
+		     #foreach($f in $!{filds})
+		         #if($f.type == 'String')
+if(!StringUtil.isEmpty(query.get${f.property}())){
+						sql.append(" and $f.columnName ='"+query.get${f.property}()+"'");
+					}
+		         #elseif($f.type == 'int' || $f.type == 'long')
+if(query.get${f.property}()>0){
+						sql.append(" and $f.columnName = "+query.get${f.property}());
+					}
+			     #end
+			 #end
+		}
+		
+		
+		return sql.toString();
+	}
+	
+	
+	
+
+}
